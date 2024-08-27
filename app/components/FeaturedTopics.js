@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
 const topics = [
+  'ai',
+  'artificial intelligence',
   'machine-learning',
   'web-development',
   'data-science',
   'mobile-apps',
-  'game-development',
   'cybersecurity',
-  'blockchain',
   'iot'
 ]
 
