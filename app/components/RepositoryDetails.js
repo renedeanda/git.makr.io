@@ -1,57 +1,90 @@
-import AIBadge from './AIBadge'
+import { StarIcon, CodeIcon, EyeIcon, ClockIcon } from '@heroicons/react/solid'
 import { detectAIProject } from '../utils/aiDetector'
+import ReadmePreview from './ReadmePreview'
+
+function TruncateText({ text, lines = 3 }) {
+  return (
+    <div className={`overflow-hidden text-ellipsis line-clamp-${lines}`}>
+      {text}
+    </div>
+  );
+}
 
 export default function RepositoryDetails({ repository }) {
+  if (!repository) {
+    return <div className="text-center">No repository data available</div>
+  }
+
   const { isAIProject, frameworks } = detectAIProject(repository)
 
   return (
-    <div className="w-full max-w-2xl bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-8">
-      <h2 className="text-3xl font-bold mb-4 gradient-text">{repository.full_name}</h2>
-      <p className="text-gray-300 mb-6">{repository.description}</p>
-      <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="bg-background border border-muted rounded-lg p-4 sm:p-8 space-y-4 sm:space-y-6 fade-in">
+      <h2 className="text-2xl sm:text-3xl font-bold gradient-text">{repository.full_name}</h2>
+      <TruncateText text={repository.description} />
+      
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-sm sm:text-base">
         <div className="flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          Stars: {repository.stargazers_count}
+          <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 text-yellow-400" />
+          <span>{repository.stargazers_count?.toLocaleString() || 0}</span>
         </div>
         <div className="flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 50 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path>
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+            <path fillRule="evenodd" d="M12 21a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5zm-3.25-1.75a3.25 3.25 0 106.5 0 3.25 3.25 0 00-6.5 0zm-3-12.75a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5zM2.5 4.75a3.25 3.25 0 106.5 0 3.25 3.25 0 00-6.5 0zM18.25 6.5a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5zM15 4.75a3.25 3.25 0 106.5 0 3.25 3.25 0 00-6.5 0z" clipRule="evenodd" />
           </svg>
-          Forks: {repository.forks_count}
+          <span>{repository.forks_count?.toLocaleString() || 0}</span>
         </div>
         <div className="flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"></path>
-          </svg>
-          Watchers: {repository.watchers_count}
+          <EyeIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 text-blue-400" />
+          <span>{repository.watchers_count?.toLocaleString() || 0}</span>
         </div>
         <div className="flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-          </svg>
-          Language: {repository.language}
+          <CodeIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 text-purple-400" />
+          <span>{repository.language || 'N/A'}</span>
         </div>
       </div>
+
+      <div className="flex items-center text-sm">
+        <ClockIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 text-muted" />
+        <span className="text-muted">Updated: {new Date(repository.updated_at).toLocaleDateString()}</span>
+      </div>
+
       {isAIProject && (
-        <div className="mb-6">
-          <AIBadge />
-          <h3 className="text-xl font-semibold mt-4 mb-2 gradient-text">AI Insights</h3>
+        <div className="bg-accent/10 text-accent p-3 sm:p-4 rounded-lg">
+          <h3 className="text-lg sm:text-xl font-semibold mb-2">AI Project Detected</h3>
           <ul className="list-disc list-inside">
-            {frameworks.map((framework) => (
-              <li key={framework}>{framework} detected</li>
+            {frameworks.slice(0, 3).map((framework) => (
+              <li key={framework}><TruncateText text={`${framework} detected`} lines={1} /></li>
             ))}
+            {frameworks.length > 3 && <li>...and more</li>}
           </ul>
         </div>
       )}
+
+      <div className="space-y-2">
+        <h3 className="text-lg sm:text-xl font-semibold">Topics</h3>
+        <div className="flex flex-wrap gap-2">
+          {repository.topics?.slice(0, 5).map((topic) => (
+            <span key={topic} className="bg-secondary/20 text-secondary px-2 py-1 rounded-full text-xs">
+              {topic}
+            </span>
+          ))}
+          {repository.topics?.length > 5 && (
+            <span className="bg-secondary/20 text-secondary px-2 py-1 rounded-full text-xs">
+              +{repository.topics.length - 5} more
+            </span>
+          )}
+        </div>
+      </div>
+
+      <ReadmePreview owner={repository.owner.login} repo={repository.name} />
+
       <a
         href={repository.html_url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block bg-white text-gray-800 font-bold py-2 px-4 rounded hover:bg-gray-200 transition duration-300"
+        className="btn btn-primary inline-block text-sm sm:text-base"
       >
-        View on Git
+        View on GitHub
       </a>
     </div>
   )

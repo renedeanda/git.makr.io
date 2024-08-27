@@ -3,36 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background: 250 250 250;
+  --foreground: 10 10 10;
+  --primary: 59 130 246;
+  --secondary: 99 102 241;
+  --accent: 244 63 94;
+  --muted: 161 161 170;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  --background: 10 10 10;
+  --foreground: 250 250 250;
+  --primary: 96 165 250;
+  --secondary: 129 140 248;
+  --accent: 248 113 113;
+  --muted: 113 113 122;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
 }
 
-.gradient-bg {
-  background: linear-gradient(90deg, #3498db, #2ecc71);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
 }
 
 .gradient-text {
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(90deg, #3498db, #2ecc71);
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary/90 focus:ring-primary;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:bg-secondary/90 focus:ring-secondary;
+}
+
+.input {
+  @apply w-full px-4 py-2 rounded-md border border-muted bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary;
 }

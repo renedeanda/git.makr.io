@@ -1,14 +1,22 @@
 import SearchBar from './components/SearchBar'
+import TrendingRepositories from './components/TrendingRepositories'
+import FeaturedTopics from './components/FeaturedTopics'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 gradient-bg text-white">
-      <h1 className="text-5xl font-bold mb-8 gradient-text">Git Repo Explorer</h1>
-      <p className="text-xl mb-8 text-center max-w-2xl">
-        Discover amazing Git projects and explore the world of open-source code.
-        Our AI-powered explorer helps you find the most interesting repositories!
-      </p>
+    <div className="space-y-12 fade-in">
+      <section className="text-center space-y-4">
+        <h1 className="text-5xl font-bold gradient-text">Git Repo Explorer</h1>
+        <p className="text-xl text-muted max-w-2xl mx-auto">
+          Discover amazing Git projects and explore the world of open-source code.
+          Our AI-powered explorer helps you find the most interesting repositories!
+        </p>
+      </section>
       <SearchBar />
-    </main>
+      <div className="grid md:grid-cols-2 gap-8">
+        <TrendingRepositories />
+        <FeaturedTopics />
+      </div>
+    </div>
   )
 }

@@ -1,7 +1,7 @@
 export function detectAIProject(repo) {
-  const aiKeywords = ['ai', 'machine learning', 'deep learning', 'neural network', 'artificial intelligence'];
-  const aiFileTypes = ['.ipynb', '.h5', '.pkl', '.onnx', '.pb'];
-  const aiFrameworks = ['tensorflow', 'pytorch', 'keras', 'scikit-learn', 'hugging face', 'openai'];
+  const aiKeywords = ['ai', 'artificial intelligence', 'machine learning', 'deep learning', 'neural network', 'nlp', 'computer vision'];
+  const aiFileTypes = ['.ipynb', '.h5', '.pkl', '.onnx', '.pb', '.pt', '.pth'];
+  const aiFrameworks = ['tensorflow', 'pytorch', 'keras', 'scikit-learn', 'hugging face', 'openai', 'fastai', 'opencv'];
 
   const name = repo.name.toLowerCase();
   const description = repo.description ? repo.description.toLowerCase() : '';

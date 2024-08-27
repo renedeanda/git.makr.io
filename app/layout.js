@@ -1,6 +1,8 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Analytics, GoogleAnalytics } from './utils/analytics'
+import { ThemeProvider } from './components/ThemeProvider'
+import Header from './components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,8 +41,13 @@ export default function RootLayout({ children }) {
         <GoogleAnalytics />
       </head>
       <body className={inter.className}>
-        {children}
-        <Analytics />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
