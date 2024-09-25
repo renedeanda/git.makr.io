@@ -11,10 +11,19 @@ export default function TrendingRepositories() {
   const fetchTrendingRepos = async () => {
     setLoading(true)
     try {
-      const res = await fetch('https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc')
+      // Get date for 7 days ago
+      const date = new Date();
+      date.setDate(date.getDate() - 7);
+      const dateString = date.toISOString().split('T')[0];
+
+      // Fetch repositories created in the last 7 days, sorted by stars
+      const res = await fetch(`https://api.github.com/search/repositories?q=created:>${dateString}&sort=stars&order=desc`)
       if (!res.ok) throw new Error('Failed to fetch trending repositories')
       const data = await res.json()
-      setRepositories(data.items.slice(0, 5))
+      
+      // Randomize the order of the top 50 repositories and take the first 5
+      const shuffled = data.items.slice(0, 50).sort(() => 0.5 - Math.random())
+      setRepositories(shuffled.slice(0, 10))
       setError(null)
     } catch (err) {
       setError(err.message)
@@ -30,7 +39,7 @@ export default function TrendingRepositories() {
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Trending Repositories</h2>
+        <h2 className="text-2xl font-bold">Trending This Week</h2>
         <button 
           onClick={fetchTrendingRepos} 
           className="btn btn-secondary flex items-center"
