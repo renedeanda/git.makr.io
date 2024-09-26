@@ -1,4 +1,4 @@
-import { fetchTrendingRepos } from '../../components/TrendingRepositories'
+import { fetchTrendingRepos } from '../components/TrendingRepositories'
 import { NextResponse } from 'next/server'
 
 function generateSitemap(repositories) {
