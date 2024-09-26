@@ -16,7 +16,7 @@ export async function fetchTrendingRepos() {
   
   // Randomize the order of the top 50 repositories and take the first 5
   const shuffled = data.items.slice(0, 50).sort(() => 0.5 - Math.random())
-  return shuffled.slice(0, 5)
+  return shuffled.slice(0, 10)
 }
 
 export default function TrendingRepositories() {
