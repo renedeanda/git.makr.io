@@ -1,8 +1,9 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Analytics, GoogleAnalytics } from './utils/analytics'
 import { ThemeProvider } from './components/ThemeProvider'
 import Header from './components/Header'
+import Script from 'next/script'
+import { usePageTracking } from './hooks/usePageTracking'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -34,12 +35,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  usePageTracking()
+
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-        <GoogleAnalytics />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -47,8 +49,21 @@ export default function RootLayout({ children }) {
           <main className="container mx-auto px-4 py-8">
             {children}
           </main>
-          <Analytics />
         </ThemeProvider>
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
       </body>
     </html>
   )
