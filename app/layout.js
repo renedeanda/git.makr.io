@@ -9,15 +9,15 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Git Repo Explorer - Discover Amazing Projects',
   description: 'Explore Git repositories with AI project detection. Find trending repos, discover AI projects, and dive into open-source code.',
-  keywords: 'Git, repository, explorer, AI, machine learning, open-source, code search',
+  keywords: 'Git, github, repository, explorer, AI, machine learning, open-source, code search',
   openGraph: {
     title: 'Git Repo Explorer',
     description: 'Discover amazing Git projects with AI detection',
-    url: 'https://git-repo-explorer.vercel.app',
+    url: 'https://git.makr.io',
     siteName: 'Git Repo Explorer',
     images: [
       {
-        url: 'https://git-repo-explorer.vercel.app/og-image.png',
+        url: 'https://git.makr.io/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -29,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Git Repo Explorer',
     description: 'Discover amazing Git projects with AI detection',
-    images: ['https://git-repo-explorer.vercel.app/og-image.png'],
+    images: ['https://git.makr.io/og-image.png'],
   },
 }
 
@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <GoogleAnalytics />
       </head>
       <body className={inter.className}>
