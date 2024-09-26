@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from './components/ThemeProvider'
 import Header from './components/Header'
 import Script from 'next/script'
-import { usePageTracking } from './hooks/usePageTracking'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,7 +34,6 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  usePageTracking()
 
   return (
     <html lang="en">
